@@ -324,6 +324,10 @@ impl MAVLinkV1MessageRaw {
         Self([0; 1 + Self::HEADER_SIZE + 255 + 2])
     }
 
+    pub fn inner_mut(&mut self) -> &mut [u8; 1 + Self::HEADER_SIZE + 255 + 2] {
+        &mut self.0
+    }
+
     #[inline]
     pub fn header(&mut self) -> &[u8] {
         &self.0[1..=Self::HEADER_SIZE]
@@ -640,6 +644,12 @@ impl MAVLinkV2MessageRaw {
 
     pub const fn new() -> Self {
         Self([0; 1 + Self::HEADER_SIZE + 255 + 2 + Self::SIGNATURE_SIZE])
+    }
+
+    pub fn inner_mut(
+        &mut self,
+    ) -> &mut [u8; 1 + Self::HEADER_SIZE + 255 + 2 + Self::SIGNATURE_SIZE] {
+        &mut self.0
     }
 
     #[inline]
